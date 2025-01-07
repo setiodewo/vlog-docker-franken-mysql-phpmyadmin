@@ -1,0 +1,32 @@
+services:
+  franken:
+    container_name: franken
+    build: .
+    # restart: always
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    tty: true
+
+
+  mysql_db:
+    container_name: mysql
+    image: mysql:latest
+    # restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: franken
+    ports:
+      - "3306:3306"
+
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+      - "81:80"
+    environment:
+      PMA_ARBITRARY: 1
